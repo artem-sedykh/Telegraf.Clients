@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Channel.Abstractions", "Telegraf.Channel.Abstractions\Telegraf.Channel.Abstractions.csproj", "{D570EFB1-EDF8-4DD0-907B-C978893A5AE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Channel.Udp", "Telegraf.Channel.Udp\Telegraf.Channel.Udp.csproj", "{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Infrastructure", "Telegraf.Infrastructure\Telegraf.Infrastructure.csproj", "{60AEB830-9851-4B2F-9D72-6A95A545FA4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Infrastructure", "2 - Infrastructure", "{ABFE3D3B-0584-437C-842A-0B14C4ADB5E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Statsd.Client", "Telegraf.Statsd.Client\Telegraf.Statsd.Client.csproj", "{EC36816E-C116-4E68-B696-4458105469FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Channels", "1 - Channels", "{245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Clients", "3 - Clients", "{A0323BEF-3780-497A-860C-F7AD94C11238}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D570EFB1-EDF8-4DD0-907B-C978893A5AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D570EFB1-EDF8-4DD0-907B-C978893A5AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D570EFB1-EDF8-4DD0-907B-C978893A5AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D570EFB1-EDF8-4DD0-907B-C978893A5AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60AEB830-9851-4B2F-9D72-6A95A545FA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60AEB830-9851-4B2F-9D72-6A95A545FA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60AEB830-9851-4B2F-9D72-6A95A545FA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60AEB830-9851-4B2F-9D72-6A95A545FA4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC36816E-C116-4E68-B696-4458105469FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC36816E-C116-4E68-B696-4458105469FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC36816E-C116-4E68-B696-4458105469FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC36816E-C116-4E68-B696-4458105469FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D570EFB1-EDF8-4DD0-907B-C978893A5AE5} = {245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}
+		{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE} = {245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}
+		{60AEB830-9851-4B2F-9D72-6A95A545FA4A} = {ABFE3D3B-0584-437C-842A-0B14C4ADB5E4}
+		{EC36816E-C116-4E68-B696-4458105469FE} = {A0323BEF-3780-497A-860C-F7AD94C11238}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26534FD0-CE06-4827-BAD5-EF0FA36739B8}
+	EndGlobalSection
+EndGlobal

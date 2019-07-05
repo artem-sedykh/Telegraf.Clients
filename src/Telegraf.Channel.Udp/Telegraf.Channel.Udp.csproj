@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <RootNamespace>Telegraf.Channel</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>telegraf udp client udpchannel channel</PackageTags>
+    <Version>1.0.1</Version>
+    <Product>Telegraf.Channel</Product>
+    <Authors>Artem Sedykh</Authors>
+    <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Telegraf.Channel.Abstractions\Telegraf.Channel.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <RootNamespace>Telegraf.Channel</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+    <Authors>Artem Sedykh</Authors>
+    <Product>Telegraf.Clients</Product>
+    <Description>Telegraf transport abstractions</Description>
+    <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>telegraf, client, abstractions, channel</PackageTags>
+    <Company />
+    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+
+</Project>

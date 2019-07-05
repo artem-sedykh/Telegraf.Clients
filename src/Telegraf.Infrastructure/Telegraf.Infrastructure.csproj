@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <RootNamespace>Telegraf</RootNamespace>
+    <Authors>Artem Sedykh</Authors>
+    <Product>Telegraf.Clients</Product>
+    <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>telegrafinfrastructure</PackageTags>
+    <Version>1.0.1</Version>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+
+</Project>
