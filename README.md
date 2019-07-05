@@ -1,4 +1,4 @@
-# Telegraf.Statsd.Client
+# Telegraf.Statsd.Client [![NuGet](https://img.shields.io/nuget/v/Telegraf.Statsd.Client.svg)](https://www.nuget.org/packages/Telegraf.Statsd.Client/) [![Downloads](https://img.shields.io/nuget/dt/Telegraf.Statsd.Client.svg)](https://www.nuget.org/packages/Telegraf.Statsd.Client/) 
 
 ### Influx Statsd
 
