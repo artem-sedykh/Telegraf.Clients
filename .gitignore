@@ -2,7 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/influxdb-telegraf-grafana-docker
 /packages
 /src/.vs/Telegraf.Clients/v15/Server/sqlite3
 /src/.vs/Telegraf.Clients/v15

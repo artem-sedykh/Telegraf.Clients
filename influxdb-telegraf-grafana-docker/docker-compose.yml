@@ -1,0 +1,53 @@
+version: "3.7"
+services:
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: always
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8089:8089/udp"
+      - "2003:2003/udp"
+    networks:
+      - monitoring
+    env_file:
+      - 'env.influxdb'
+    volumes:
+      # sudo mkdir -p /mnt/monitoring-data/influxdb/data
+      - /mnt/monitoring-data/influxdb/data:/var/lib/influxdb
+
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    restart: always
+    ports:
+      - "8125:8125/udp"
+      - "8094:8094/udp"
+    depends_on:
+      - influxdb
+    networks:
+      - monitoring
+    env_file:
+      - 'env.influxdb'
+    volumes:
+      - /mnt/monitoring-data/influxdb/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    env_file:
+      - 'env.grafana'
+    depends_on:
+      - influxdb
+    networks:
+      - monitoring
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /mnt/monitoring-data/grafana/data; chown 472:472 /mnt/monitoring-data/grafana/data
+      - /mnt/monitoring-data/grafana/data:/var/lib/grafana
+
+networks:
+  monitoring:
