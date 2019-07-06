@@ -17,3 +17,5 @@
 /src/ConsoleApp1
 /src/Telegraf.Channel.Tcp/bin/Debug
 /src/Telegraf.Channel.Tcp/obj
+/src/Telegraf.Infux.Client/bin/Debug
+/src/Telegraf.Infux.Client/obj
