@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Telegraf.Infux</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Artem Sedykh</Authors>
+    <Company>Artem Sedykh</Company>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>telegraf influx-client influx influxdb influx</PackageTags>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Telegraf.Channel.Abstractions\Telegraf.Channel.Abstractions.csproj" />
+    <ProjectReference Include="..\Telegraf.Infrastructure\Telegraf.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

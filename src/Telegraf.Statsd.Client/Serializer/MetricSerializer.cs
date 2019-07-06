@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using Telegraf.Formatters;
 using Telegraf.Statsd.Models;
@@ -9,75 +8,49 @@ namespace Telegraf.Statsd.Serializer
     internal class MetricSerializer
     {
         private const string MetricDatagramFormat = "{0}|{1}";
-        private const string SampledMetricDatagramFormat = MetricDatagramFormat + "|@{2:N3}";
+        private const string SampledMetricDatagramFormat = MetricDatagramFormat + "|@{2:G}";
         private readonly CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+        private const string StatsdFormat = "{0}:{1}";
+        private const string StatsdTagsFormat = "{0},{2}:{1}";
 
         public string SerializeMetric(Metric metric)
         {
-            var type = GetMetricTypeSpecifier(metric.Type);
+            var value = FormattedMetricValue(metric.Type, metric.Value, metric.Sample);
 
-            switch (metric.Value)
-            {
-                case DoubleMetricValue doubleMetricValue:
-                    {
-                        var datagram = SerializeMetric(metric.Name, type, doubleMetricValue.Value, metric.Sample, metric.Tags, doubleMetricValue.ExplicitlySigned);
+            var measurement = MeasurementBuilder.BuildMeasurement(metric.Name);
 
-                        return datagram;
-                    }
-                case StringMetricValue stringMetricValue:
-                    {
-                        var datagram = SerializeMetric(metric.Name, type, stringMetricValue.Value, metric.Sample, metric.Tags);
+            var tags = metric.Tags;
 
-                        return datagram;
-                    }
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
+            var tagsValue = tags == null ? null : string.Join(",", TagsFormatter.Format(tags));
 
-        public string SerializeMetric(string metric, string type, double value, double sample, IDictionary<string, string> tags, bool explicitlySigned = false)
-        {
-            if (string.IsNullOrWhiteSpace(metric))
-                throw new ArgumentException("metric");
+            var format = string.IsNullOrWhiteSpace(tagsValue) ? StatsdFormat : StatsdTagsFormat;
 
-            if (string.IsNullOrWhiteSpace(type))
-                throw new ArgumentException("type");
-
-            if (sample < 0 || sample > 1)
-                throw new ArgumentOutOfRangeException(nameof(sample));
-
-            var metricValueFormat = explicitlySigned ? "{0:+#.####;-#.####;#}" : "{0}";
-
-            var metricValue = Math.Abs(value) < 0.00000001 ? explicitlySigned ? "+0" : "0" : string.Format(cultureInfo, metricValueFormat, (float)value);
-
-            var datagram = SerializeMetric(metric, type, metricValue, sample, tags);
+            var datagram = string.Format(format, measurement, value, tagsValue);
 
             return datagram;
         }
 
-        public string SerializeMetric(string measurement, string type, string value, double sample, IDictionary<string, string> tags)
+        internal string FormattedMetricValue(MetricType type, MetricValue metricValue, double sample)
         {
-            if (string.IsNullOrWhiteSpace(measurement))
-                throw new ArgumentException(nameof(measurement));
+            if (sample < 0 || sample > 1)
+                throw new ArgumentOutOfRangeException(nameof(sample));
 
-            if (string.IsNullOrWhiteSpace(type))
+            var metricTypeSpecifier = GetMetricTypeSpecifier(type);
+
+            var value = metricValue.ToString();
+
+            if (string.IsNullOrWhiteSpace(metricTypeSpecifier))
                 throw new ArgumentException(nameof(type));
 
             if (sample < 0 || sample > 1)
                 throw new ArgumentOutOfRangeException(nameof(sample));
 
-            measurement = MeasurementBuilder.BuildMeasurement(measurement);
-
             var format = sample < 1 ? SampledMetricDatagramFormat : MetricDatagramFormat;
 
-            var metric = string.Format(cultureInfo, format, value, type, sample);
-
-            var datagram = InfluxStatsDMetric(measurement, tags, metric);
-
-            return datagram;
+            return string.Format(cultureInfo, format, value, metricTypeSpecifier, sample);
         }
 
-        private static string GetMetricTypeSpecifier(MetricType metricType)
+        internal static string GetMetricTypeSpecifier(MetricType metricType)
         {
             switch (metricType)
             {
@@ -92,22 +65,6 @@ namespace Telegraf.Statsd.Serializer
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private static string InfluxStatsDMetric(string measurement, IDictionary<string, string> tags, string metric)
-        {
-            var allTags = tags == null ? null : string.Join(",", TagsFormatter.Format(tags));
-
-            measurement = KeyFormatter.Format(measurement);
-
-            var datagram = $"{measurement}";
-
-            if (!string.IsNullOrEmpty(allTags))
-                datagram += $",{allTags}";
-
-            datagram += $":{metric}";
-
-            return datagram;
         }
     }
 }
