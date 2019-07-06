@@ -12,6 +12,8 @@
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>telegraf tcp client tcpchannel channel</PackageTags>
+    <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
+    <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
 
   <ItemGroup>
