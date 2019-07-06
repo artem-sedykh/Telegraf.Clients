@@ -19,22 +19,24 @@ users.current,reg=us-w:32|g
 
 ### Supported platforms
 
-`Telegraf.Statsd.Client` version 4 is built for these target frameworks:
+`Telegraf.Statsd.Client` is built for these target frameworks:
 
 * `net46`
 * `netstandard2.0`
 
-## Usage example
+## Telegraf.Statsd.Client
 add Telegraf.Statsd.Client
 ```
 dotnet add package Telegraf.Statsd.Client
 dotnet add package Telegraf.Channel.Udp 
+dotnet add package Telegraf.Channel.Tcp 
 ```
 
+send metrics use udp channel
 ```cs
 var uri = new Uri("udp://192.168.56.101:8125");
-var channel = new UdpTelegrafChannel(uri);
-var client = new TelegrafStatsdClient(channel, new Dictionary<string, string>
+var udpChannel = new UdpTelegrafChannel(uri);
+var client = new TelegrafStatsdClient(udpChannel, new Dictionary<string, string>
 {
     {"database_tag", "test_app"}
 });
@@ -42,3 +44,22 @@ var client = new TelegrafStatsdClient(channel, new Dictionary<string, string>
 //send time(100ms)
 client.Time("services", 100, t => t.Tag("service", "some-service").Tag("method", "some-method"));
 ```
+
+send metrics use tcp channel
+```cs
+var uri = new Uri("tcp://192.168.56.101:8126");
+var tcpChannel = new TcpTelegrafChannel(uri);
+var client = new TelegrafStatsdClient(tcpChannel, new Dictionary<string, string>
+{
+    {"database_tag", "test_app"}
+});
+
+//send time(100ms)
+client.Time("services", 100, t => t.Tag("service", "some-service").Tag("method", "some-method"));
+```
+
+## Telegraf.Infux.Client
+`Telegraf.Infux.Client` is built for these target frameworks:
+
+* `net46`
+* `netstandard2.0`
