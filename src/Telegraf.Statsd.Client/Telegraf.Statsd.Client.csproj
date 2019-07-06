@@ -12,10 +12,11 @@ https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
     <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Company />
+    <Company>Artem Sedykh</Company>
     <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
+    <Authors>Artem Sedykh</Authors>
   </PropertyGroup>
 
   <ItemGroup>
