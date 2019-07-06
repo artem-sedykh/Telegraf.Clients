@@ -68,7 +68,6 @@ namespace Telegraf.Channel
             _UDPSocket.SendTo(encodedCommand, encodedCommand.Length, SocketFlags.None, _ipEndPoint);
         }
 
-
         public void Dispose()
         {
             _UDPSocket?.Dispose();

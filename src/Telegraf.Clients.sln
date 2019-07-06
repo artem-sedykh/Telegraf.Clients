@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Channels", "1 - Channel
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Clients", "3 - Clients", "{A0323BEF-3780-497A-860C-F7AD94C11238}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Tests", "0 - Tests", "{4063F436-CF2F-4BE4-9D7B-A6723DB48B10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telegraf.Channel.Tcp", "Telegraf.Channel.Tcp\Telegraf.Channel.Tcp.csproj", "{897C787A-2ECB-4ED9-BA46-0036D2060923}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{EC36816E-C116-4E68-B696-4458105469FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC36816E-C116-4E68-B696-4458105469FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC36816E-C116-4E68-B696-4458105469FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{897C787A-2ECB-4ED9-BA46-0036D2060923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897C787A-2ECB-4ED9-BA46-0036D2060923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897C787A-2ECB-4ED9-BA46-0036D2060923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897C787A-2ECB-4ED9-BA46-0036D2060923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{74A4FF21-ABF3-49DB-8FDB-3C9971967DCE} = {245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}
 		{60AEB830-9851-4B2F-9D72-6A95A545FA4A} = {ABFE3D3B-0584-437C-842A-0B14C4ADB5E4}
 		{EC36816E-C116-4E68-B696-4458105469FE} = {A0323BEF-3780-497A-860C-F7AD94C11238}
+		{897C787A-2ECB-4ED9-BA46-0036D2060923} = {245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26534FD0-CE06-4827-BAD5-EF0FA36739B8}

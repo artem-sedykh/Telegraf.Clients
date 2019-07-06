@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Telegraf.Channel</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+    <Authors>Artem Sedykh</Authors>
+    <Product>Telegraf.Channel</Product>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>telegraf tcp client tcpchannel channel</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.6.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Telegraf.Channel.Abstractions\Telegraf.Channel.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

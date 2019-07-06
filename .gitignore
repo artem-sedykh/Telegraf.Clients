@@ -14,3 +14,6 @@
 /src/Telegraf.Statsd.Client/bin/Debug
 /src/Telegraf.Statsd.Client/obj
 /src/Telegraf.Clients.v3.ncrunchsolution.user
+/src/ConsoleApp1
+/src/Telegraf.Channel.Tcp/bin/Debug
+/src/Telegraf.Channel.Tcp/obj

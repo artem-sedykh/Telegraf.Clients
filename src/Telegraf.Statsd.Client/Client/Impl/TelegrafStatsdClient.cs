@@ -18,10 +18,7 @@ namespace Telegraf.Statsd.Client.Impl
 
         public TelegrafStatsdClient(ITelegrafChannel channel, IDictionary<string,string> tags)
         {
-            if (_channel == null)
-                throw new ArgumentNullException(nameof(channel));
-
-            _channel = channel;
+            _channel = channel ?? throw new ArgumentNullException(nameof(channel));
             _tags = tags ?? new Dictionary<string, string>();
         }
 
@@ -94,7 +91,7 @@ namespace Telegraf.Statsd.Client.Impl
         {
             if (metric.Sample < 1 && metric.Sample < Sampler.NextDouble()) return;
 
-            var payload = _metricSerializer.SerializeMetric(metric);
+            var payload = _metricSerializer.SerializeMetric(metric)+ "\n";
 
             using (var stream = new MemoryStream())
             using (var writer = new StreamWriter(stream))
