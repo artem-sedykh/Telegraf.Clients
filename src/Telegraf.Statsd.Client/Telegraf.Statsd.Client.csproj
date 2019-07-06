@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
     <RootNamespace>Telegraf.Statsd</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageTags>telegraf statsd client influxdb influx</PackageTags>
     <Description>telegraf statsD client
 https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
@@ -22,6 +22,10 @@ https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
   <ItemGroup>
     <ProjectReference Include="..\Telegraf.Channel.Abstractions\Telegraf.Channel.Abstractions.csproj" />
     <ProjectReference Include="..\Telegraf.Infrastructure\Telegraf.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

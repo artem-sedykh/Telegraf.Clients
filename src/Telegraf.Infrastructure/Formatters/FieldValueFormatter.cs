@@ -57,8 +57,6 @@ namespace Telegraf.Formatters
 
         private static string FormatString(string stringValue)
         {
-            stringValue = stringValue.Replace("'", "\'");
-
             stringValue = stringValue.Replace("\"", "\\\"");
 
             return $"\"{stringValue}\"";

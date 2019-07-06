@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>telegrafinfrastructure</PackageTags>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>

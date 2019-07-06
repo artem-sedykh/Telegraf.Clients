@@ -20,7 +20,7 @@ namespace Telegraf.Infux.Client.Impl
             _tags = tags ?? new Dictionary<string, string>();
         }
 
-        public void Send(string measurement, Func<IFieldBuilder, IFieldBuilder> fieldBuilder, Func<ITagBuilder, ITagBuilder> tabBuilder, DateTime? timestamp)
+        public void Send(string measurement, Func<IFieldBuilder, IFieldBuilder> fieldBuilder, Func<ITagBuilder, ITagBuilder> tabBuilder, DateTime? timestamp = null)
         {
             if (fieldBuilder == null)
                 throw new ArgumentNullException(nameof(fieldBuilder));
@@ -33,9 +33,9 @@ namespace Telegraf.Infux.Client.Impl
             Publish(point);
         }
 
-        public Task SendAsync(string measurement, Func<IFieldBuilder, IFieldBuilder> fieldBuilder, Func<ITagBuilder, ITagBuilder> tabBuilder, DateTime? timestamp)
+        public Task SendAsync(string measurement, Func<IFieldBuilder, IFieldBuilder> fieldBuilder, Func<ITagBuilder, ITagBuilder> tabBuilder, DateTime? timestamp = null)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() => Send(measurement, fieldBuilder, tabBuilder, timestamp));
         }
 
         internal void Publish(InfluxPoint point)

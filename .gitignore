@@ -19,3 +19,7 @@
 /src/Telegraf.Channel.Tcp/obj
 /src/Telegraf.Infux.Client/bin/Debug
 /src/Telegraf.Infux.Client/obj
+/src/Telegraf.Infrastructure.Tests/bin/Debug/netcoreapp2.2
+/src/Telegraf.Infrastructure.Tests/obj
+/src/Telegraf.Statsd.Client.Tests/bin/Debug/netcoreapp2.2
+/src/Telegraf.Statsd.Client.Tests/obj

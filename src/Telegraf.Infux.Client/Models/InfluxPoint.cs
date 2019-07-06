@@ -32,9 +32,9 @@ namespace Telegraf.Infux.Models
 
         public void Format(TextWriter textWriter)
         {
-            var value = this.ToString();
+            var value = ToString();
 
-            textWriter.WriteLine(value);
+            textWriter.WriteLine($"{value}\n");
         }
 
         public override string ToString()

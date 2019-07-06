@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Telegraf.Formatters;
 
 namespace Telegraf.Statsd.Serializer
 {
@@ -26,12 +27,13 @@ namespace Telegraf.Statsd.Serializer
         {
             var metricName = string.Join(".", names.Where(n => string.IsNullOrWhiteSpace(n) == false).Select(s => SanitizeMeasurement(s.Trim('.').Trim(' '))));
 
-            return metricName;
+            return KeyFormatter.Format(metricName);
         }
 
         public static string SanitizeMeasurement(string metric)
         {
             metric = ReservedCharactersRegex.Replace(metric, "_");
+
             return metric;
         }
     }

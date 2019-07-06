@@ -1,4 +1,7 @@
-﻿namespace Telegraf.Statsd.Models
+﻿using System;
+using System.Globalization;
+
+namespace Telegraf.Statsd.Models
 {
     internal class DoubleMetricValue : MetricValue
     {
@@ -10,6 +13,15 @@
         {
             Value = value;
             ExplicitlySigned = explicitlySigned;
+        }
+
+        public override string ToString()
+        {
+            var metricValueFormat = ExplicitlySigned ? "{0:+#.####;-#.####;#}" : "{0}";
+
+            var formattedValue = Math.Abs(Value) < 0.00000001 ? ExplicitlySigned ? "+0" : "0" : string.Format(CultureInfo.InvariantCulture, metricValueFormat, (float)Value);
+
+            return formattedValue;
         }
     }
 }
