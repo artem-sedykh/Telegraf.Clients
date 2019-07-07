@@ -101,7 +101,7 @@ var client = new TelegrafInfuxClient(udpChannel, new Dictionary<string, string>
     {"database_tag", "test_app"}
 });
 
-client.Send("weather", 100,f => f.Field("temperature","82") t => t.Tag("location", "us-midwest"), DateTime.Now);
+client.Send("weather", 100, f => f.Field("temperature", "82") t => t.Tag("location", "us-midwest"), DateTime.Now);
 ```
 
 send metrics use tcp channel
@@ -113,5 +113,5 @@ var client = new TelegrafInfuxClient(tcpChannel, new Dictionary<string, string>
     {"database_tag", "test_app"}
 });
 
-client.Send("weather", 100,f => f.Field("temperature","82") t => t.Tag("location", "us-midwest"), DateTime.Now);
+client.Send("weather", 100, f => f.Field("temperature", "82") t => t.Tag("location", "us-midwest"), DateTime.Now);
 ```
