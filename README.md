@@ -89,12 +89,14 @@ add Telegraf.Infux.Client
 ```
 dotnet add package Telegraf.Infux.Client
 dotnet add package Telegraf.Channel.Udp 
-dotnet add package Telegraf.Channel.Tcp 
+dotnet add package Telegraf.Channel.Tcp
+dotnet add package Telegraf.Channel.Http 
+
 ```
 
 send metrics use udp channel
 ```cs
-var uri = new Uri("udp://192.168.56.101:8125");
+var uri = new Uri("udp://192.168.56.101:8094");
 var udpChannel = new UdpTelegrafChannel(uri);
 var client = new TelegrafInfuxClient(udpChannel, new Dictionary<string, string>
 {
@@ -106,9 +108,47 @@ client.Send("weather", f => f.Field("temperature", 82), t => t.Tag("location", "
 
 send metrics use tcp channel
 ```cs
-var uri = new Uri("tcp://192.168.56.101:8126");
+var uri = new Uri("tcp://192.168.56.101:8095");
 var tcpChannel = new TcpTelegrafChannel(uri);
 var client = new TelegrafInfuxClient(tcpChannel, new Dictionary<string, string>
+{
+    {"database_tag", "test_app"}
+});
+
+client.Send("weather", f => f.Field("temperature", 82), t => t.Tag("location", "us-midwest"), DateTime.Now);
+```
+
+send metrics use http channel
+```cs
+var uri = new Uri($"http://192.168.56.101:8080/write");
+var disposingWaitTaskTimeout = TimeSpan.FromSeconds(30);
+var httpTimeout = TimeSpan.FromSeconds(15);
+
+var httpChannel = new HttpTelegrafChanne(uri, disposingWaitTaskTimeou, httpTimeout);
+
+var client = new TelegrafInfuxClient(httpChannel, new Dictionary<string, string>
+{
+    {"database_tag", "test_app"}
+});
+
+client.Send("weather", f => f.Field("temperature", 82), t => t.Tag("location", "us-midwest"), DateTime.Now);
+```
+
+send metrics use http channel and auth header
+```cs
+var uri = new Uri($"http://192.168.56.101:8081/write");
+var disposingWaitTaskTimeout = TimeSpan.FromSeconds(30);
+var httpTimeout = TimeSpan.FromSeconds(15);
+
+var username = "foobar";
+var password = "barfoo";
+var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(username + ":" + password));
+
+ var authorizationHeaderValue = $"Basic {encoded}";
+
+var httpChannel = new HttpTelegrafChanne(uri, disposingWaitTaskTimeou, httpTimeout, authorizationHeaderValue);
+
+var client = new TelegrafInfuxClient(httpChannel, new Dictionary<string, string>
 {
     {"database_tag", "test_app"}
 });
