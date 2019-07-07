@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Telegraf.Infux.Serializers;
 
 namespace Telegraf.Infux.Models
@@ -30,11 +29,11 @@ namespace Telegraf.Infux.Models
 
         public DateTime? UtcTimestamp { get; }
 
-        public void Format(TextWriter textWriter)
+        public string Format()
         {
             var value = ToString();
 
-            textWriter.WriteLine($"{value}\n");
+            return value;
         }
 
         public override string ToString()

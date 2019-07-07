@@ -6,14 +6,14 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Artem Sedykh</Authors>
     <Company>Artem Sedykh</Company>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicense>
     <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>telegraf influx-client influx influxdb influx</PackageTags>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>

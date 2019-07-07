@@ -1,45 +1,49 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Telegraf.Channel.Helpers;
 
 namespace Telegraf.Channel
 {
     public class UdpTelegrafChannel: ITelegrafChannel
     {
-        internal const int DefaultUdpPort = 8125;
-        internal const string DefaultUdpHost = "127.0.0.1";
-        private readonly Socket _UDPSocket;
-        private readonly int _maxUDPPacketSize;
+        internal const int DefaultPort = 8125;
+        internal const string DefaultHost = "127.0.0.1";
+        private readonly Socket _socket;
+        private readonly int _maxPacketSize;
         private readonly IPEndPoint _ipEndPoint;
 
-        public UdpTelegrafChannel(Uri uri, int maxUDPPacketSize = 512)
+        public UdpTelegrafChannel(Uri uri, int maxPacketSize = 512)
         {
-            _ipEndPoint = ParseEndpoint(uri, DefaultUdpHost, DefaultUdpPort);
+            _ipEndPoint = ParseEndpoint(uri, DefaultHost, DefaultPort);
 
-            _UDPSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)
+            {
+                ExclusiveAddressUse = false
+            };
 
-            _maxUDPPacketSize = maxUDPPacketSize;
+            _maxPacketSize = maxPacketSize;
         }
 
         public bool SupportsBatchedWrites => false;
 
-        public void WriteBuffer(Stream stream)
+        public void Write(string metric)
         {
-            var buffer = StreamHelper.ReadFully(stream);
+            if (string.IsNullOrWhiteSpace(metric))
+                return;
+
+            var buffer = Encoding.UTF8.GetBytes(metric);
 
             Send(buffer);
         }
 
         private void Send(byte[] encodedCommand)
         {
-            if (_maxUDPPacketSize > 0 && encodedCommand.Length > _maxUDPPacketSize)
+            if (_maxPacketSize > 0 && encodedCommand.Length > _maxPacketSize)
             {
                 var newline = Encoding.UTF8.GetBytes("\n")[0];
 
-                for (var i = _maxUDPPacketSize; i > 0; i--)
+                for (var i = _maxPacketSize; i > 0; i--)
                 {
                     if (encodedCommand[i] != newline)
                         continue;
@@ -65,12 +69,12 @@ namespace Telegraf.Channel
                 }
             }
 
-            _UDPSocket.SendTo(encodedCommand, encodedCommand.Length, SocketFlags.None, _ipEndPoint);
+            _socket.SendTo(encodedCommand, encodedCommand.Length, SocketFlags.None, _ipEndPoint);
         }
 
         public void Dispose()
         {
-            _UDPSocket?.Dispose();
+            _socket?.Dispose();
         }
 
         internal static IPEndPoint ParseEndpoint(Uri uri, string defaultHost, int defaultPort)

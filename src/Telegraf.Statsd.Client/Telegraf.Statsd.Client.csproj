@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
     <RootNamespace>Telegraf.Statsd</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageTags>telegraf statsd client influxdb influx</PackageTags>
     <Description>telegraf statsD client
 https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
@@ -13,7 +13,7 @@ https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Company>Artem Sedykh</Company>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicense>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
     <Authors>Artem Sedykh</Authors>

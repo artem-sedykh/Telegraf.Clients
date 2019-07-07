@@ -4,14 +4,14 @@
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
     <RootNamespace>Telegraf.Channel</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
-    <Authors>Artem Sedykh</Authors>
-    <Product>Telegraf.Channel</Product>
     <PackageLicense>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicense>
     <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>telegraf tcp client tcpchannel channel</PackageTags>
+    <PackageTags>telegraf http client httpchannel channel</PackageTags>
+    <Version>1.0.2</Version>
+    <Product>Telegraf.Channel</Product>
+    <Authors>Artem Sedykh</Authors>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>

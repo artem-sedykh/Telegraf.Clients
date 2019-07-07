@@ -1,10 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using NLog;
-using Telegraf.Channel.Tcp.Helpers;
 // ReSharper disable RedundantBoolCompare
 
 namespace Telegraf.Channel
@@ -29,6 +28,54 @@ namespace Telegraf.Channel
             Reconnect();
 
             _timer = new Timer(obj => CheckConnection(), null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+        }
+
+        public void Write(string metric)
+        {
+            if (_disposed == true)
+                return;
+
+            if (string.IsNullOrWhiteSpace(metric))
+                return;
+
+            metric = metric.EndsWith("\n") ? metric : $"{metric}\n";
+            var buffer = Encoding.UTF8.GetBytes(metric);
+
+            try
+            {
+                var socketEventArgs = new SocketAsyncEventArgs { SocketFlags = SocketFlags.None };
+
+                socketEventArgs.SetBuffer(buffer, 0, buffer.Length);
+
+                lock (_syncObj)
+                {
+                    if (IsConnected() == false)
+                    {
+                        _logger.Warn("Connection is broken, data lost");
+
+                        return;
+                    }
+
+                    _socket.SendAsync(socketEventArgs);
+                }
+            }
+            catch (Exception e)
+            {
+                // ReSharper disable once InconsistentlySynchronizedField
+                _logger.Error(e);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_disposed == true)
+                return;
+
+            _timer.Dispose();
+
+            CloseSocket(_socket);
+
+            _disposed = true;
         }
 
         private Socket CreateSocket()
@@ -66,62 +113,16 @@ namespace Telegraf.Channel
         {
             try
             {
-                var args = new SocketAsyncEventArgs {RemoteEndPoint = _ipEndPoint};
-
                 var oldSocket = _socket;
 
                 CloseSocket(oldSocket);
 
                 _socket = CreateSocket();
 
-                _socket.ConnectAsync(args);
+                _socket.Connect(_ipEndPoint);
             }
             catch (Exception e)
             {
-                _logger.Error(e);
-            }
-        }
-
-        public void Dispose()
-        {
-            if (_disposed == true)
-                return;
-
-            _timer.Dispose();
-
-             CloseSocket(_socket);
-
-             _disposed = true;
-        }
-
-        public void WriteBuffer(Stream stream)
-        {
-            if(_disposed == true)
-                return;
-
-            var encodedCommand = StreamHelper.ReadFully(stream);
-
-            try
-            {
-                var socketEventArgs = new SocketAsyncEventArgs { SocketFlags = SocketFlags.None };
-
-                socketEventArgs.SetBuffer(encodedCommand, 0, encodedCommand.Length);
-
-                lock (_syncObj)
-                {
-                    if (IsConnected() == false)
-                    {
-                        _logger.Warn("Connection is broken, data lost");
-
-                        return;
-                    }
-
-                    _socket.SendAsync(socketEventArgs);
-                }
-            }
-            catch (Exception e)
-            {
-                // ReSharper disable once InconsistentlySynchronizedField
                 _logger.Error(e);
             }
         }
