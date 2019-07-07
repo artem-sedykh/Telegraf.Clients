@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Telegraf.Channel.Tcp\Telegraf.Channel.Tcp.csproj" />
+    <ProjectReference Include="..\Telegraf.Channel.Udp\Telegraf.Channel.Udp.csproj" />
+    <ProjectReference Include="..\Telegraf.Statsd.Client\Telegraf.Statsd.Client.csproj" />
+  </ItemGroup>
+
+</Project>
