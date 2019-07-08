@@ -59,7 +59,7 @@ namespace StatsdExamples
         {
             var uri = new Uri($"tcp://{host}:8126");
 
-            using (var channel = new TcpTelegrafChannel(uri))
+            using (var channel = new TcpTelegrafChannel(uri, TimeSpan.FromSeconds(60)))
             {
                 //[[outputs.influxdb]]
                 //## The value of this tag will be used to determine the database.  If this

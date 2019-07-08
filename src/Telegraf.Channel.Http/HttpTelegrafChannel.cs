@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 
@@ -14,14 +16,15 @@ namespace Telegraf.Channel
         private readonly Uri _uri;
         private readonly int _httpTimeout;
         private readonly ILogger _logger = LogManager.GetLogger(typeof(HttpTelegrafChannel).FullName);
-        private readonly IList<Task> _tasks = new List<Task>();
-        private readonly object _lockObj = new object();
+        private readonly ConcurrentDictionary<Guid, Task> _tasks = new ConcurrentDictionary<Guid, Task>();
         private bool _disposed;
         private bool _disposing;
+        private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private readonly TimeSpan _disposingWaitTaskTimeout;
         private readonly string _authorizationHeaderValue;
 
         public bool SupportsBatchedWrites => true;
+
 
         /// <summary>
         /// Http telegraf channel (<a href="https://github.com/Mirantis/telegraf/tree/master/plugins/inputs/http_listener">http_listener</a>)
@@ -46,48 +49,40 @@ namespace Telegraf.Channel
 
         public void Write(string metric)
         {
-            var task = WriteAsync(metric);
+            if(string.IsNullOrWhiteSpace(metric))
+                return;
 
-            task.ContinueWith(_ =>
-            {
-                lock (_lockObj)
-                {
-                    _tasks.Remove(task);
-                }
-            });
+            var taskId = Guid.NewGuid();
 
-            lock (_lockObj)
-            {
-                _tasks.Add(task);
-            }
+            var task = Task.Factory.StartNew(
+                () => WriteInternal(metric, taskId),
+                _cancellationTokenSource.Token,
+                TaskCreationOptions.DenyChildAttach,
+                TaskScheduler.Default);
+
+            _tasks.TryAdd(taskId, task);
         }
 
-        internal async Task WriteAsync(string metric)
+        internal void WriteInternal(string metric, Guid taskId)
         {
-            if (_disposed || _disposing)
-                return;
-
-            if (string.IsNullOrWhiteSpace(metric))
-                return;
-
-            var httpWebRequest = CreateWebRequest();
-
-            using (var requestStream = await Task.Factory.FromAsync(httpWebRequest.BeginGetRequestStream, httpWebRequest.EndGetRequestStream, httpWebRequest))
-            {
-                using (var writer = new StreamWriter(requestStream, Encoding.UTF8))
-                {
-                    await writer.WriteLineAsync(metric);
-                }
-            }
-
             try
             {
-                using (var webResponse = await Task.Factory.FromAsync(httpWebRequest.BeginGetResponse, httpWebRequest.EndGetResponse, httpWebRequest))
+                if (_cancellationTokenSource.IsCancellationRequested)
+                    return;
+
+                var httpWebRequest = CreateWebRequest();
+
+                using (var requestStream = httpWebRequest.GetRequestStream())
                 {
-                    using (webResponse.GetResponseStream())
+                    using (var writer = new StreamWriter(requestStream, Encoding.UTF8))
                     {
-                        _logger.Trace($"metric: {metric} sent");
+                        writer.WriteLine(metric);
                     }
+                }
+
+                using (var responce = httpWebRequest.GetResponse())
+                {
+                    using (responce.GetResponseStream()){ }
                 }
             }
             catch (WebException e)
@@ -97,6 +92,10 @@ namespace Telegraf.Channel
             catch (Exception e)
             {
                 _logger.Error(e, $"metric:{metric}");
+            }
+            finally
+            {
+                _tasks.TryRemove(taskId, out _);
             }
         }
 
@@ -113,6 +112,13 @@ namespace Telegraf.Channel
             return httpWebRequest;
         }
 
+        internal IEnumerable<Task> GetTasks()
+        {
+            var tasks = _tasks.Where(t => t.Value != null && t.Value.IsCompleted == false).Select(t => t.Value);
+
+            return tasks;
+        }
+
         public void Dispose()
         {
             if (_disposed || _disposing)
@@ -122,16 +128,18 @@ namespace Telegraf.Channel
 
             try
             {
-                var tasks = _tasks.Where(t => t != null && t.IsCompleted == false).ToArray();
+                _logger.Info($"Waiting for completion of {GetTasks().Count()} tasks, maximum waiting time: {_disposingWaitTaskTimeout:g}");
 
-                _logger.Info($"Waiting for completion of {tasks.Length} tasks, maximum waiting time: {_disposingWaitTaskTimeout:g}");
+                var tasks = GetTasks().ToArray();
 
-                var completed = Task.WaitAll(_tasks.ToArray(), _disposingWaitTaskTimeout);
+               var completed = Task.WaitAll(tasks, _disposingWaitTaskTimeout);
 
-                if (completed == false)
-                    _logger.Warn($"During '{_disposingWaitTaskTimeout:g}' {tasks.Count(t => t.IsCompleted)} from  {tasks.Length} tasks were completed");
-                else
-                    _logger.Info("All tasks completed");
+               if (completed == false)
+                   _logger.Warn($"During '{_disposingWaitTaskTimeout:g}' {tasks.Count(t => t.IsCompleted)} from  {tasks.Length} tasks were completed");
+               else
+                   _logger.Info("All tasks completed");
+
+               _cancellationTokenSource.Cancel();
             }
             catch (Exception e)
             {

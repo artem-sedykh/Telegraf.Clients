@@ -27,13 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Statsd.Client.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Infrastructure.Tests", "Telegraf.Infrastructure.Tests\Telegraf.Infrastructure.Tests.csproj", "{09CE0C50-103B-4459-84A5-D6A88601EE7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telegraf.Channel.Http", "Telegraf.Channel.Http\Telegraf.Channel.Http.csproj", "{9956B9B7-FA70-4846-A165-CAC0AA1379F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Channel.Http", "Telegraf.Channel.Http\Telegraf.Channel.Http.csproj", "{9956B9B7-FA70-4846-A165-CAC0AA1379F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Examples", "4 - Examples", "{29EDE9DC-FD8A-4846-9FF1-0DE888667030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatsdExamples", "StatsdExamples\StatsdExamples.csproj", "{5405DE6E-6DCE-4023-BCEA-136032E4C957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatsdExamples", "StatsdExamples\StatsdExamples.csproj", "{5405DE6E-6DCE-4023-BCEA-136032E4C957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfuxClientExamples", "InfuxClientExamples\InfuxClientExamples.csproj", "{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfuxClientExamples", "InfuxClientExamples\InfuxClientExamples.csproj", "{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
