@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegraf.Channel;
@@ -40,15 +39,9 @@ namespace Telegraf.Infux.Client.Impl
 
         internal void Publish(InfluxPoint point)
         {
-            using (var stream = new MemoryStream())
-            using (var writer = new StreamWriter(stream))
-            {
-                point.Format(writer);
+            var metric = point.Format();
 
-                writer.Flush();
-
-                _channel.WriteBuffer(stream);
-            }
+            _channel.Write(metric);
         }
 
         private IDictionary<string, string> BuildTags(Func<ITagBuilder, ITagBuilder> builder)

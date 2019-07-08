@@ -5,7 +5,7 @@
     <RootNamespace>Telegraf</RootNamespace>
     <Authors>Artem Sedykh</Authors>
     <Product>Telegraf.Clients</Product>
-    <PackageProjectUrl>https://github.com/artem-sedykh/Telegraf.Clients</PackageProjectUrl>
+    <PackageLicense>https://github.com/artem-sedykh/Telegraf.Clients</PackageLicense>
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>telegrafinfrastructure</PackageTags>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Telegraf.Channel;
 using Telegraf.Infrastructure;
@@ -87,21 +86,14 @@ namespace Telegraf.Statsd.Client.Impl
             return result;
         }
 
-        private void Publish(Metric metric)
+        internal void Publish(Metric metric)
         {
-            if (metric.Sample < 1 && metric.Sample < Sampler.NextDouble()) return;
+            if (metric.Sample < 1 && metric.Sample < Sampler.NextDouble())
+                return;
 
-            var payload = _metricSerializer.SerializeMetric(metric)+ "\n";
+            var payload = _metricSerializer.SerializeMetric(metric);
 
-            using (var stream = new MemoryStream())
-            using (var writer = new StreamWriter(stream))
-            {
-                writer.Write(payload);
-
-                writer.Flush();
-
-                _channel.WriteBuffer(stream);
-            }
+            _channel.Write(payload);
         }
     }
 }

@@ -23,7 +23,11 @@ services:
     restart: always
     ports:
       - "8125:8125/udp"
+      - "8126:8126"
+      - "8080:8080"
+      - "8081:8081"
       - "8094:8094/udp"
+      - "8095:8095"
     depends_on:
       - influxdb
     networks:

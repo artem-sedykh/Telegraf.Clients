@@ -27,6 +27,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Statsd.Client.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Infrastructure.Tests", "Telegraf.Infrastructure.Tests\Telegraf.Infrastructure.Tests.csproj", "{09CE0C50-103B-4459-84A5-D6A88601EE7D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Channel.Http", "Telegraf.Channel.Http\Telegraf.Channel.Http.csproj", "{9956B9B7-FA70-4846-A165-CAC0AA1379F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Examples", "4 - Examples", "{29EDE9DC-FD8A-4846-9FF1-0DE888667030}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatsdExamples", "StatsdExamples\StatsdExamples.csproj", "{5405DE6E-6DCE-4023-BCEA-136032E4C957}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfuxClientExamples", "InfuxClientExamples\InfuxClientExamples.csproj", "{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +73,18 @@ Global
 		{09CE0C50-103B-4459-84A5-D6A88601EE7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09CE0C50-103B-4459-84A5-D6A88601EE7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09CE0C50-103B-4459-84A5-D6A88601EE7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9956B9B7-FA70-4846-A165-CAC0AA1379F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9956B9B7-FA70-4846-A165-CAC0AA1379F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9956B9B7-FA70-4846-A165-CAC0AA1379F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9956B9B7-FA70-4846-A165-CAC0AA1379F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5405DE6E-6DCE-4023-BCEA-136032E4C957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5405DE6E-6DCE-4023-BCEA-136032E4C957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5405DE6E-6DCE-4023-BCEA-136032E4C957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5405DE6E-6DCE-4023-BCEA-136032E4C957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +98,9 @@ Global
 		{275762DF-5737-4419-98BD-D14857707E01} = {A0323BEF-3780-497A-860C-F7AD94C11238}
 		{F8610DCA-F64C-4007-A094-64E467384742} = {4063F436-CF2F-4BE4-9D7B-A6723DB48B10}
 		{09CE0C50-103B-4459-84A5-D6A88601EE7D} = {4063F436-CF2F-4BE4-9D7B-A6723DB48B10}
+		{9956B9B7-FA70-4846-A165-CAC0AA1379F6} = {245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}
+		{5405DE6E-6DCE-4023-BCEA-136032E4C957} = {29EDE9DC-FD8A-4846-9FF1-0DE888667030}
+		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9} = {29EDE9DC-FD8A-4846-9FF1-0DE888667030}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26534FD0-CE06-4827-BAD5-EF0FA36739B8}

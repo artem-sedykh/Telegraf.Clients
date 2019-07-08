@@ -23,3 +23,9 @@
 /src/Telegraf.Infrastructure.Tests/obj
 /src/Telegraf.Statsd.Client.Tests/bin/Debug/netcoreapp2.2
 /src/Telegraf.Statsd.Client.Tests/obj
+/src/Telegraf.Channel.Http/bin/Debug
+/src/Telegraf.Channel.Http/obj
+/src/InfuxClientExamples/bin/Debug/netcoreapp2.2
+/src/InfuxClientExamples/obj
+/src/StatsdExamples/obj
+/src/StatsdExamples/bin/Debug/netcoreapp2.2

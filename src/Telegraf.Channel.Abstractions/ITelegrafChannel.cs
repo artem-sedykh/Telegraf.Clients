@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace Telegraf.Channel
 {
@@ -7,6 +6,6 @@ namespace Telegraf.Channel
     {
         bool SupportsBatchedWrites { get; }
 
-        void WriteBuffer(Stream stream);
+        void Write(string metric);
     }
 }
