@@ -12,8 +12,9 @@
     <Version>1.0.3</Version>
     <PackageLicenseUrl>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicenseUrl>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
-    <IncludeSymbols>true</IncludeSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>Telegraf.Infrastructure</PackageId>
   </PropertyGroup>
 

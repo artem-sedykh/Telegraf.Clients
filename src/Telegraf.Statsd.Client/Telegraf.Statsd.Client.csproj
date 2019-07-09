@@ -16,6 +16,7 @@ https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
     <PackageLicense>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicense>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Authors>Artem Sedykh</Authors>
   </PropertyGroup>
 

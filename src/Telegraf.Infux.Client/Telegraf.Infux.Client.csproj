@@ -13,6 +13,7 @@
     <PackageTags>telegraf influx-client influx influxdb influx</PackageTags>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Version>1.0.3</Version>
   </PropertyGroup>
 
