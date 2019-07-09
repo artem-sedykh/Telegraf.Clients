@@ -1,5 +1,4 @@
-# Telegraf.Statsd.Client [![NuGet](https://img.shields.io/nuget/v/Telegraf.Statsd.Client.svg)](https://www.nuget.org/packages/Telegraf.Statsd.Client/) [![Downloads](https://img.shields.io/nuget/dt/Telegraf.Statsd.Client.svg)](https://www.nuget.org/packages/Telegraf.Statsd.Client/) 
-
+# Telegraf.Statsd.Client [![NuGet](https://img.shields.io/nuget/v/Telegraf.Statsd.Client.svg)](https://www.nuget.org/packages/Telegraf.Statsd.Client/) [![Downloads](https://img.shields.io/nuget/dt/Telegraf.Statsd.Client.svg)](https://www.nuget.org/packages/Telegraf.Statsd.Client/) [![Build status](https://ci.appveyor.com/api/projects/status/uvdicwji4o0i9paf?svg=true)](https://ci.appveyor.com/project/artem-sedykh/telegraf-clients/branch/master)
 ### Influx Statsd
 
 [Telegraf Statsd documentation](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd)
@@ -48,7 +47,7 @@ client.Time("services", 100, t => t.Tag("service", "some-service").Tag("method",
 send metrics use tcp channel
 ```cs
 var uri = new Uri("tcp://192.168.56.101:8126");
-var tcpChannel = new TcpTelegrafChannel(uri);
+var tcpChannel = new TcpTelegrafChannel(uri, TimeSpan.FromSeconds(60));
 var client = new TelegrafStatsdClient(tcpChannel, new Dictionary<string, string>
 {
     {"database_tag", "test_app"}
@@ -58,7 +57,7 @@ var client = new TelegrafStatsdClient(tcpChannel, new Dictionary<string, string>
 client.Time("services", 100, t => t.Tag("service", "some-service").Tag("method", "some-method"));
 ```
 
-# Telegraf.Infux.Client [![NuGet](https://img.shields.io/nuget/v/Telegraf.Infux.Client.svg)](https://www.nuget.org/packages/Telegraf.Infux.Client/) [![Downloads](https://img.shields.io/nuget/dt/Telegraf.Infux.Client.svg)](https://www.nuget.org/packages/Telegraf.Infux.Client/) 
+# Telegraf.Infux.Client [![NuGet](https://img.shields.io/nuget/v/Telegraf.Infux.Client.svg)](https://www.nuget.org/packages/Telegraf.Infux.Client/) [![Downloads](https://img.shields.io/nuget/dt/Telegraf.Infux.Client.svg)](https://www.nuget.org/packages/Telegraf.Infux.Client/) [![Build status](https://ci.appveyor.com/api/projects/status/uvdicwji4o0i9paf?svg=true)](https://ci.appveyor.com/project/artem-sedykh/telegraf-clients/branch/master)
 
 ### Influx statistic client
 
@@ -109,7 +108,7 @@ client.Send("weather", f => f.Field("temperature", 82), t => t.Tag("location", "
 send metrics use tcp channel
 ```cs
 var uri = new Uri("tcp://192.168.56.101:8095");
-var tcpChannel = new TcpTelegrafChannel(uri);
+var tcpChannel = new TcpTelegrafChannel(uri, TimeSpan.FromSeconds(60));
 var client = new TelegrafInfuxClient(tcpChannel, new Dictionary<string, string>
 {
     {"database_tag", "test_app"}
