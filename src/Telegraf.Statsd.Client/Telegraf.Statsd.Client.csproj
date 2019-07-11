@@ -17,6 +17,7 @@ https://github.com/influxdata/telegraf/tree/master/plugins/inputs/statsd
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <Authors>Artem Sedykh</Authors>
   </PropertyGroup>
 
