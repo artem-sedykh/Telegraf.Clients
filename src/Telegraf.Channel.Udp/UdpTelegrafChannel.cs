@@ -17,10 +17,9 @@ namespace Telegraf.Channel
         {
             _ipEndPoint = ParseEndpoint(uri, DefaultHost, DefaultPort);
 
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)
-            {
-                ExclusiveAddressUse = false
-            };
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+            _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
 
             _maxPacketSize = maxPacketSize;
         }
