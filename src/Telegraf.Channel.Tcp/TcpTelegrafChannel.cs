@@ -59,6 +59,13 @@ namespace Telegraf.Channel
             _tasks.TryAdd(taskId, task);
         }
 
+        public Task WriteAsync(string metric)
+        {
+            Write(metric);
+
+            return Task.CompletedTask;
+        }
+
         internal bool EnsureConnection()
         {
             var isConnected = IsConnected();

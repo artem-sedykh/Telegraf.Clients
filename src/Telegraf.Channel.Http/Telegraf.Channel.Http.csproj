@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/artem-sedykh/Telegraf.Clients</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>telegraf http client httpchannel channel</PackageTags>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Product>Telegraf.Channel</Product>
     <Authors>Artem Sedykh</Authors>
     <PackageOutputPath>$(ProjectDir)../../packages</PackageOutputPath>

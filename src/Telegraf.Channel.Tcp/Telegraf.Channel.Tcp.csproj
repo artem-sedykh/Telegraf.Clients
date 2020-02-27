@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
     <RootNamespace>Telegraf.Channel</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Artem Sedykh</Authors>
     <Product>Telegraf.Channel</Product>
     <PackageLicense>https://raw.githubusercontent.com/artem-sedykh/Telegraf.Clients/master/LICENSE</PackageLicense>

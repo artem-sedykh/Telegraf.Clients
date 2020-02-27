@@ -30,3 +30,5 @@
 /src/StatsdExamples/obj
 /src/StatsdExamples/bin/Debug/netcoreapp2.2
 /src/.vs/Telegraf.Clients/DesignTimeBuild
+/.vs
+/src/.vs/Telegraf.Clients/v16

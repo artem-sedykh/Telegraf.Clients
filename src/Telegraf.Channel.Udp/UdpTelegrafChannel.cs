@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.ExceptionServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Telegraf.Channel
 {
@@ -12,6 +14,7 @@ namespace Telegraf.Channel
         private readonly Socket _socket;
         private readonly int _maxPacketSize;
         private readonly IPEndPoint _ipEndPoint;
+        private bool _isDisposed;
 
         public UdpTelegrafChannel(Uri uri, int maxPacketSize = 512)
         {
@@ -28,15 +31,33 @@ namespace Telegraf.Channel
 
         public void Write(string metric)
         {
+            try
+            {
+                var task = WriteAsync(metric);
+
+                task.Wait();
+            }
+            catch (AggregateException e)
+            {
+                var di = ExceptionDispatchInfo.Capture(e.GetBaseException());
+
+                di.Throw();
+
+                throw;
+            }
+        }
+
+        public async Task WriteAsync(string metric)
+        {
             if (string.IsNullOrWhiteSpace(metric))
                 return;
 
             var buffer = Encoding.UTF8.GetBytes(metric);
 
-            Send(buffer);
+            await SendAsync(buffer);
         }
 
-        private void Send(byte[] encodedCommand)
+        private async Task SendAsync(byte[] encodedCommand)
         {
             if (_maxPacketSize > 0 && encodedCommand.Length > _maxPacketSize)
             {
@@ -51,7 +72,7 @@ namespace Telegraf.Channel
 
                     Array.Copy(encodedCommand, encodedCommandFirst, encodedCommandFirst.Length);
 
-                    Send(encodedCommandFirst);
+                    await SendAsync(encodedCommandFirst);
 
                     var remainingCharacters = encodedCommand.Length - i - 1;
 
@@ -62,18 +83,27 @@ namespace Telegraf.Channel
 
                     Array.Copy(encodedCommand, i + 1, encodedCommandSecond, 0, encodedCommandSecond.Length);
 
-                    Send(encodedCommandSecond);
+                    await SendAsync(encodedCommandSecond);
 
                     return;
                 }
             }
 
-            _socket.SendTo(encodedCommand, encodedCommand.Length, SocketFlags.None, _ipEndPoint);
+            await SendToAsyncInternal(new ArraySegment<byte>(encodedCommand));
         }
 
-        public void Dispose()
+        internal Task<int> SendToAsyncInternal(ArraySegment<byte> buffer)
         {
-            _socket?.Dispose();
+            var tcs = new TaskCompletionSource<int>(this);
+
+            _socket.BeginSendTo(buffer.Array ?? throw new InvalidOperationException(), buffer.Offset, buffer.Count, SocketFlags.None, _ipEndPoint, iar =>
+            {
+                var innerTcs = (TaskCompletionSource<int>)iar.AsyncState;
+                try { innerTcs.TrySetResult(((Socket)innerTcs.Task.AsyncState).EndSendTo(iar)); }
+                catch (Exception e) { innerTcs.TrySetException(e); }
+            }, tcs);
+
+            return tcs.Task;
         }
 
         internal static IPEndPoint ParseEndpoint(Uri uri, string defaultHost, int defaultPort)
@@ -99,6 +129,33 @@ namespace Telegraf.Channel
             var hostAddress = hostAddresses[0];
 
             return hostAddress;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        // The bulk of the clean-up code is implemented in Dispose(bool)
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed)
+                return;
+
+            if (disposing)
+            {
+                // free managed resources
+                _socket?.Dispose();
+            }
+
+            _isDisposed = true;
+        }
+
+        ~UdpTelegrafChannel()
+        {
+            Dispose(false);
         }
     }
 }

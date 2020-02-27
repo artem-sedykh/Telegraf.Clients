@@ -32,9 +32,17 @@ namespace Telegraf.Infux.Client.Impl
             Publish(point);
         }
 
-        public Task SendAsync(string measurement, Func<IFieldBuilder, IFieldBuilder> fieldBuilder, Func<ITagBuilder, ITagBuilder> tabBuilder, DateTime? timestamp = null)
+        public async Task SendAsync(string measurement, Func<IFieldBuilder, IFieldBuilder> fieldBuilder, Func<ITagBuilder, ITagBuilder> tabBuilder, DateTime? timestamp = null)
         {
-            return Task.Factory.StartNew(() => Send(measurement, fieldBuilder, tabBuilder, timestamp));
+            if (fieldBuilder == null)
+                throw new ArgumentNullException(nameof(fieldBuilder));
+
+            var tags = BuildTags(tabBuilder);
+            var fields = fieldBuilder(new FieldBuilder()).ToDictionary(f => f.Key, f => f.Value);
+
+            var point = new InfluxPoint(measurement, fields, tags, timestamp);
+
+            await PublishAsync(point);
         }
 
         internal void Publish(InfluxPoint point)
@@ -42,6 +50,13 @@ namespace Telegraf.Infux.Client.Impl
             var metric = point.Format();
 
             _channel.Write(metric);
+        }
+
+        internal async Task PublishAsync(InfluxPoint point)
+        {
+            var metric = point.Format();
+
+            await _channel.WriteAsync(metric);
         }
 
         private IDictionary<string, string> BuildTags(Func<ITagBuilder, ITagBuilder> builder)

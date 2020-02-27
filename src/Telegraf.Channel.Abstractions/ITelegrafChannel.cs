@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Telegraf.Channel
 {
@@ -7,5 +8,8 @@ namespace Telegraf.Channel
         bool SupportsBatchedWrites { get; }
 
         void Write(string metric);
+
+
+        Task WriteAsync(string metric);
     }
 }

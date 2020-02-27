@@ -63,6 +63,13 @@ namespace Telegraf.Channel
             _tasks.TryAdd(taskId, task);
         }
 
+        public Task WriteAsync(string metric)
+        {
+            Write(metric);
+
+            return Task.CompletedTask;
+        }
+
         internal void WriteInternal(string metric, Guid taskId)
         {
             try
