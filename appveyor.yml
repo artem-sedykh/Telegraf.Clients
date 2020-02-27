@@ -11,8 +11,8 @@
 
   build_script:
     - cmd: dotnet restore -v m  ./src/Telegraf.Clients.sln
-    - cmd: dotnet build  -v m -c Debug ./src/Telegraf.Clients.sln
-       
+    - cmd: dotnet build -v m -c Debug ./src/Telegraf.Clients.sln
+    - cmd: dotnet pack -v m -c Debug ./src/Telegraf.Clients.sln
   artifacts:
     - path: "./packages/*.*"
 -
@@ -27,7 +27,8 @@
   build_script:
     - cmd: dotnet restore -v m  ./src/Telegraf.Clients.sln
     - cmd: dotnet build  -v m -c Release ./src/Telegraf.Clients.sln
-      
+    - cmd: dotnet pack  -v m -c Release ./src/Telegraf.Clients.sln
+
   artifacts:
     - path: "./packages/*.nupkg"
 

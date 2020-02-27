@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telegraf.Channel.Abstractions", "Telegraf.Channel.Abstractions\Telegraf.Channel.Abstractions.csproj", "{D570EFB1-EDF8-4DD0-907B-C978893A5AE5}"
 EndProject
@@ -34,6 +34,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatsdExamples", "StatsdExamples\StatsdExamples.csproj", "{5405DE6E-6DCE-4023-BCEA-136032E4C957}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfuxClientExamples", "InfuxClientExamples\InfuxClientExamples.csproj", "{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telegraf.Channel.Udp.Tests", "Telegraf.Channel.Udp.Tests\Telegraf.Channel.Udp.Tests.csproj", "{BF4D86F3-30E5-4957-BBFC-961CA2A46BBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4D86F3-30E5-4957-BBFC-961CA2A46BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4D86F3-30E5-4957-BBFC-961CA2A46BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4D86F3-30E5-4957-BBFC-961CA2A46BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4D86F3-30E5-4957-BBFC-961CA2A46BBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{9956B9B7-FA70-4846-A165-CAC0AA1379F6} = {245D3B69-E6D9-4E71-8AC3-92D50AEFDF45}
 		{5405DE6E-6DCE-4023-BCEA-136032E4C957} = {29EDE9DC-FD8A-4846-9FF1-0DE888667030}
 		{79F2019E-F04A-4AFD-B1B7-88178DE16CE9} = {29EDE9DC-FD8A-4846-9FF1-0DE888667030}
+		{BF4D86F3-30E5-4957-BBFC-961CA2A46BBC} = {4063F436-CF2F-4BE4-9D7B-A6723DB48B10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26534FD0-CE06-4827-BAD5-EF0FA36739B8}

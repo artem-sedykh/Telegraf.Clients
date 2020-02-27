@@ -32,3 +32,5 @@
 /src/.vs/Telegraf.Clients/DesignTimeBuild
 /.vs
 /src/.vs/Telegraf.Clients/v16
+/src/Telegraf.Channel.Udp.Tests/bin/Debug/netcoreapp2.2
+/src/Telegraf.Channel.Udp.Tests/obj

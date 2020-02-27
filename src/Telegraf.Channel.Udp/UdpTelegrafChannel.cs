@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,20 +30,12 @@ namespace Telegraf.Channel
 
         public void Write(string metric)
         {
-            try
-            {
-                var task = WriteAsync(metric);
+            if (string.IsNullOrWhiteSpace(metric))
+                return;
 
-                task.Wait();
-            }
-            catch (AggregateException e)
-            {
-                var di = ExceptionDispatchInfo.Capture(e.GetBaseException());
+            var buffer = Encoding.UTF8.GetBytes(metric);
 
-                di.Throw();
-
-                throw;
-            }
+            Send(buffer);
         }
 
         public async Task WriteAsync(string metric)
@@ -92,9 +83,44 @@ namespace Telegraf.Channel
             await SendToAsyncInternal(new ArraySegment<byte>(encodedCommand));
         }
 
-        internal Task<int> SendToAsyncInternal(ArraySegment<byte> buffer)
+        private void Send(byte[] encodedCommand)
         {
-            var tcs = new TaskCompletionSource<int>(this);
+            if (_maxPacketSize > 0 && encodedCommand.Length > _maxPacketSize)
+            {
+                var newline = Encoding.UTF8.GetBytes("\n")[0];
+
+                for (var i = _maxPacketSize; i > 0; i--)
+                {
+                    if (encodedCommand[i] != newline)
+                        continue;
+
+                    var encodedCommandFirst = new byte[i];
+
+                    Array.Copy(encodedCommand, encodedCommandFirst, encodedCommandFirst.Length);
+
+                    Send(encodedCommandFirst);
+
+                    var remainingCharacters = encodedCommand.Length - i - 1;
+
+                    if (remainingCharacters <= 0)
+                        return;
+
+                    var encodedCommandSecond = new byte[remainingCharacters];
+
+                    Array.Copy(encodedCommand, i + 1, encodedCommandSecond, 0, encodedCommandSecond.Length);
+
+                    Send(encodedCommandSecond);
+
+                    return;
+                }
+            }
+
+            _socket.SendTo(encodedCommand, encodedCommand.Length, SocketFlags.None, _ipEndPoint);
+        }
+
+        internal async Task<int> SendToAsyncInternal(ArraySegment<byte> buffer)
+        {
+            var tcs = new TaskCompletionSource<int>(_socket);
 
             _socket.BeginSendTo(buffer.Array ?? throw new InvalidOperationException(), buffer.Offset, buffer.Count, SocketFlags.None, _ipEndPoint, iar =>
             {
@@ -103,7 +129,7 @@ namespace Telegraf.Channel
                 catch (Exception e) { innerTcs.TrySetException(e); }
             }, tcs);
 
-            return tcs.Task;
+            return await tcs.Task;
         }
 
         internal static IPEndPoint ParseEndpoint(Uri uri, string defaultHost, int defaultPort)
